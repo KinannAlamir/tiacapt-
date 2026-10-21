@@ -1,0 +1,244 @@
+:root {
+  --bg: #121113;
+  --bg-alt: #1c1a1d;
+  --ember: #ff5a2d;
+  --ember-dark: #c43a12;
+  --smoke: #8d8a8f;
+  --text: #f2efe9;
+  --paper: #2a2729;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-text-size-adjust: 100%;
+  background: radial-gradient(circle at 20% 20%, #2a2224 0%, var(--bg) 45%),
+              radial-gradient(circle at 80% 80%, #241f21 0%, var(--bg) 50%);
+  color: var(--text);
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* léger effet de fumée qui dérive en fond */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,200,200,0.06), transparent 70%);
+  animation: drift 18s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+body::before { top: 10%; left: -10%; }
+body::after { bottom: -10%; right: -5%; animation-duration: 24s; }
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(60px, 40px) scale(1.2); }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-bottom: 4px;
+  text-shadow: 0 0 12px rgba(255, 90, 45, 0.5);
+}
+
+.subtitle {
+  color: var(--ember);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.pitch {
+  margin: 32px auto;
+  background: var(--paper);
+  border: 1px solid #3a3537;
+  border-radius: 10px;
+  padding: 20px 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.pitch p {
+  line-height: 1.6;
+}
+
+.whisper {
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  color: var(--smoke);
+}
+
+.cta {
+  margin-top: 40px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+  min-height: 80px;
+}
+
+.btn {
+  font-size: 1.2rem;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.15s ease, left 0.25s ease, top 0.25s ease, background 0.2s ease;
+}
+
+.btn-oui {
+  background: var(--ember);
+  color: #1a1a1a;
+}
+.btn-oui:hover {
+  background: #ff7a50;
+  transform: scale(1.05);
+}
+
+.btn-non {
+  background: #3a3537;
+  color: var(--text);
+  position: relative;
+}
+
+.dodge-counter {
+  margin-top: 16px;
+  font-style: italic;
+  color: var(--smoke);
+  min-height: 1.4em;
+}
+
+.message-box {
+  margin-top: 40px;
+  background: var(--paper);
+  border: 2px dashed var(--ember);
+  border-radius: 10px;
+  padding: 24px;
+  animation: pop-in 0.4s ease;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.message-box p {
+  line-height: 1.6;
+}
+
+.signature {
+  text-align: right;
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  color: var(--ember);
+}
+
+footer {
+  margin-top: 60px;
+  font-size: 0.85rem;
+  color: var(--smoke);
+}
+
+/* Tags décoratifs façon graffiti / stickers */
+.tag {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.85;
+  user-select: none;
+}
+
+.tag-acab {
+  top: 18px;
+  left: 16px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: var(--ember-dark);
+  transform: rotate(-8deg);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+}
+
+.tag-ink {
+  top: 90px;
+  right: 10px;
+  max-width: 220px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.6rem;
+  color: var(--smoke);
+  transform: rotate(5deg);
+  text-align: right;
+}
+
+.tag-smoke {
+  bottom: 24px;
+  left: 12px;
+  font-size: 0.95rem;
+  color: var(--smoke);
+  max-width: 200px;
+  text-align: left;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .tag-ink, .tag-acab, .tag-smoke {
+    display: none; /* on évite le bazar sur petit écran */
+  }
+  .container {
+    padding: 28px 16px 60px;
+  }
+  .pitch, .message-box {
+    padding: 16px;
+  }
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .btn {
+    min-width: 180px;
+  }
+}
+
+/* Écrans tactiles : pas de survol collant, pas de zoom au double-tap, cibles assez grandes */
+@media (hover: none) {
+  .btn-oui:hover {
+    background: var(--ember);
+    transform: none;
+  }
+  .btn-oui:active {
+    background: #ff7a50;
+    transform: scale(0.97);
+  }
+}
+
+.btn {
+  min-height: 48px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-non {
+  z-index: 10;
+}
